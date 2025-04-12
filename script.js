@@ -6,6 +6,9 @@
  * Set default values for low and high factors
  * Initialize mistakes array
  */
+var high = 9;
+var low = 3;
+
 
 /* Function main() THIS REPLACES askQuestions(
  * Calls setup to change default values
@@ -15,6 +18,14 @@
  * @param: none
  * @return: none
  */
+function main(){
+    let score = 0;
+    let questions = setUp();
+    for (let question = 1; question <= questions; question++ ) {
+        score += askQuestion(question);
+    }
+    showStats(score,questions);
+}
 
 
 /* Function setUp()
@@ -23,7 +34,17 @@
  * @param: none
  * @return: {integer} questions
  */
-
+function setUp(){
+    let questions = 5;
+    let defaults = confirm("Keep defaults?");
+    if (defaults == false) {
+        low = changeVar("low");
+        high = changeVar("high");
+        questions = changeVar("questions");
+    }
+    else alert("Defaults kept");
+    return questions;
+}
 
 /* Function changeVar(variable)
  * Asks user which value to change variable to
@@ -31,15 +52,34 @@
  * @param: variable
  * @return: {integer} value 
  */
-
+function changeVar(variable){
+    let value = prompt("Choose your " + variable + " value");
+    value = parseInt(value);
+    return value;
+}
 
 /* Function askQuestion(question) 
  * Asks a multiplication question: 2 factors between low and high ranges
- * Provides feedback (correct?), returns true if correct, false if not * Adds missed factors to mistakes array.
+ * Provides feedback (correct?), returns true if correct, false if not 
+ * Adds missed factors to mistakes array.
  * @param: {integer} question 
  * @return: boolean value 
  */
-
+function askQuestion(question){
+    let a = Math.floor(Math.random()*(high-low+1))+low;
+    let b = Math.floor(Math.random()*(high-low+1))+low;
+    let product = a * b;
+    let equation = "Question " + question + ": " + a + " * " + b + " = ?";
+    let answer = prompt(equation);
+    if (answer == product) {
+        alert("Correct!");
+        return true;
+    }
+    else {
+        alert("Incorrect.");
+        return false;
+    }
+}
 
 /* Function showStats()
  * Provides feedback on total correct out of total asked. 
@@ -51,6 +91,23 @@
  * @param: score, questions
  * @return: none
  */
+function showStats(score, questions){
+    let tables = true;
+    let factor = 0;
+    let more = "any";
+    if (score == questions) alert("Perfection badge!");
+    else{
+        alert("You got " + score + " out of " + questions + " right.");
+    }
+    while (tables == true) {
+        let tables = confirm("Do you want to study " + more + " tables?");
+        if (tables == true) {
+            factor = prompt("Show table for which factor?");
+            showTable(factor);
+            more = "more";
+        }
+    }
+}
 
 
 /* Function showTable(factor)
@@ -60,12 +117,17 @@
  * @param: factor
  * @return: none
  */
+function showTable(factor){
 
+}
 
 /* Function showErrors(errors)
  * Provides feedback on errors by showing pairs of factors from the mistakes array (global).
  * statsAnalysis() shows the highest most frequent factor in mistakes[]  
  * @param: errors
  * @return: none
+ */
+function showErrors(errors){
 
+}
 
