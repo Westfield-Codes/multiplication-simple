@@ -1,38 +1,41 @@
-/* MULTIPLICATION SIMPLE
- * This program should ask multiplication questions, displaying which question
- * is being asked, and counting the number of equations with at least one error.
- * FLOWCHART: https://lucid.app/lucidchart/5a3164fd-459f-494d-9cae-b4a6be593b13/view
- */
-
-
-/* main controls the program. 
- * Store the number of questions to ask in a variable called questions.
- * Call askQuestions, sending questions as an argument, which returns the number right. 
- * Give feedback depending on the number right returned: Either "Perfect!" or say 
- * how many right out of the number asked (questions). 
- * @param none
- * @return none
- */
+var mistakes = [5,8,6,8,6,9,4,9,7,8,6,4];
 function main() {
+    showStats(4, 10);
+}
+function showStats(score, questions) {
+let tables = true;
+let more = "any";
+if(score == questions){
+  alert("Perfect!");
+}
+else{
+  alert("You got " + score + " out of " + questions + " right.");
+  let errors = questions - score;
+  alert(showErrors(errors));
+}
+while(tables == true){
+  tables = confirm("Would you like to study " + more + " tables?")
+  if(tables == true){
+     let factor = parseInt(prompt("Show table for which factor?"))
+    showTable(factor);
+    more = "more";
+  }
+}
+}
+
+function showErrors(errors) {
+   let feedback = "Here were your errors: " + "\n";
+  for(let error = 0; error < mistakes.length; error += 2){
+    feedback += mistakes[error] + " x " + mistakes[error+1] + "\n";
+  }
+  feedback += "The highest factor with the most errors was " + statsAnalysis() + ". Study tables for it!"
+return feedback;
+}
+
+function statsAnalysis() {
 
 }
 
-
-/* askQuestions calls askQuestion() questions times (for loop), sending the question number as an argument. 
- * It counts the number right returned, and returns number right to main() for feedback.
- * @param: {integer} questions 
- * @return: {integer} right (0-questions)
- */
-function askQuestions(questions) {
-
-}
-
-
-/* askQuestion asks a multiplication question, using the question parameter to say which
- * question is being asked.  It returns 1 if correct, 0 if incorrect.
- * @param: {integer} question (1 - questions)
- * @return: {integer} correct (0 or 1) or {boolean} correct
- */
-function askQuestion(question){
-  
+function showTable(factor){
+alert(factor);
 }
